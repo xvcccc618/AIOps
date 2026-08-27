@@ -1,0 +1,308 @@
+{
+  "total": 43,
+  "passed": 40,
+  "failed": 3,
+  "pass_rate": "93.0%",
+  "by_dimension": {
+    "RAG检索质量": {
+      "total": 9,
+      "passed": 6,
+      "metrics": {
+        "Case1 关键词命中": {
+          "value": "3/4",
+          "threshold": ">=2.0",
+          "passed": true,
+          "detail": "OOM 导致容器反复重启"
+        },
+        "Case2 关键词命中": {
+          "value": "0/4",
+          "threshold": ">=2.0",
+          "passed": false,
+          "detail": "数据库连接池耗尽"
+        },
+        "Case3 关键词命中": {
+          "value": "4/4",
+          "threshold": ">=2.0",
+          "passed": true,
+          "detail": "GC 导致延迟飙升"
+        },
+        "Case4 关键词命中": {
+          "value": "2/4",
+          "threshold": ">=2.0",
+          "passed": true,
+          "detail": "缓存雪崩"
+        },
+        "Case5 关键词命中": {
+          "value": "0/4",
+          "threshold": ">=2.0",
+          "passed": false,
+          "detail": "K8s 节点资源不足"
+        },
+        "Case6 关键词命中": {
+          "value": "0/4",
+          "threshold": ">=2.0",
+          "passed": false,
+          "detail": "MySQL 慢查询"
+        },
+        "空检索率": {
+          "value": "0.0%",
+          "threshold": "<=50%",
+          "passed": true,
+          "detail": "0/6 次空检索"
+        },
+        "平均检索耗时": {
+          "value": "4285ms",
+          "threshold": "<=5000ms",
+          "passed": true,
+          "detail": "P99 应 <8s"
+        },
+        "关键词命中率": {
+          "value": "50.0%",
+          "threshold": ">=50%",
+          "passed": true,
+          "detail": "3/6 命中"
+        }
+      }
+    },
+    "诊断准确性": {
+      "total": 5,
+      "passed": 5,
+      "metrics": {
+        "RCA Schema 证据链": {
+          "value": 2,
+          "threshold": ">=1",
+          "passed": true,
+          "detail": "每条根因必须有证据支撑"
+        },
+        "置信度校准": {
+          "value": 0.85,
+          "threshold": "0.0~1.0",
+          "passed": true,
+          "detail": "置信度必须在合法范围内"
+        },
+        "SMART 合规率": {
+          "value": "100%",
+          "threshold": "100%",
+          "passed": true,
+          "detail": "Action Items 必须包含具体动作/Owner/Deadline/Priority"
+        },
+        "SMART 示例注入": {
+          "value": "有",
+          "threshold": "有",
+          "passed": true,
+          "detail": "RCA Prompt 必须包含 SMART Action Items 示例"
+        },
+        "证据链约束注入": {
+          "value": "有",
+          "threshold": "有",
+          "passed": true,
+          "detail": "RCA Prompt 必须要求证据链"
+        }
+      }
+    },
+    "执行效率": {
+      "total": 5,
+      "passed": 5,
+      "metrics": {
+        "工具可调用率": {
+          "value": "100%",
+          "threshold": ">=90%",
+          "passed": true,
+          "detail": "6/6 工具可调用"
+        },
+        "重规划上限保护": {
+          "value": "replan_count=3",
+          "threshold": ">=3 时转兜底",
+          "passed": true,
+          "detail": "防止无限重规划消耗 token"
+        },
+        "死循环检测": {
+          "value": "检测到",
+          "threshold": "检测到",
+          "passed": true,
+          "detail": "L1→L2→L1 循环应被检测"
+        },
+        "Handoff 上限设置": {
+          "value": 3,
+          "threshold": "1~20",
+          "passed": true,
+          "detail": "防止无限交接"
+        },
+        "Plan 工具名合法性": {
+          "value": "非法工具名 1 个",
+          "threshold": "能检测出非法工具名",
+          "passed": true,
+          "detail": "合法工具: {'query_slow_sql', 'fetch_k8s_logs', 'get_pod_status', 'check_db_connections', 'restart_service', 'describe_pod'}"
+        }
+      }
+    },
+    "成本控制": {
+      "total": 5,
+      "passed": 5,
+      "metrics": {
+        "Token 预算分级": {
+          "value": "有",
+          "threshold": "有",
+          "passed": true,
+          "detail": "按 P0~P4 分级分配 token 预算"
+        },
+        "启发式预筛(正常跳过)": {
+          "value": "跳过LLM",
+          "threshold": "跳过LLM",
+          "passed": true,
+          "detail": "正常工具返回应跳过 LLM 反思以节省 token"
+        },
+        "启发式预筛(错误触发)": {
+          "value": "触发LLM",
+          "threshold": "触发LLM",
+          "passed": true,
+          "detail": "错误工具返回应触发 LLM 深度反思"
+        },
+        "LLM 指标采集完整性": {
+          "value": "完整",
+          "threshold": "完整",
+          "passed": true,
+          "detail": "必须追踪 calls/tokens/time"
+        },
+        "日志摘要截断": {
+          "value": "3537 chars",
+          "threshold": "<=16500 chars",
+          "passed": true,
+          "detail": "500行日志应被截断至 4000 token 预算内"
+        }
+      }
+    },
+    "系统韧性": {
+      "total": 8,
+      "passed": 8,
+      "metrics": {
+        "Redis 降级逻辑": {
+          "value": "有降级",
+          "threshold": "有降级",
+          "passed": true,
+          "detail": "Redis 不可用时自动降级为内存检查点"
+        },
+        "工具超时配置覆盖率": {
+          "value": "100%",
+          "threshold": ">=90%",
+          "passed": true,
+          "detail": "6/6 工具配置了超时"
+        },
+        "超时值合理性": {
+          "value": "range 10-15s",
+          "threshold": "5~30s",
+          "passed": true,
+          "detail": "所有工具超时应在 5~30 秒内"
+        },
+        "指数退避重试": {
+          "value": "有",
+          "threshold": "有",
+          "passed": true,
+          "detail": "重试需有退避策略和上限"
+        },
+        "会话超时看门狗": {
+          "value": "300s",
+          "threshold": ">0",
+          "passed": true,
+          "detail": "会话级超时应正确注册"
+        },
+        "超时检测(未超时)": {
+          "value": "未超时",
+          "threshold": "未超时",
+          "passed": true,
+          "detail": "刚注册的会话不应超时"
+        },
+        "幻觉防护(正常输出)": {
+          "value": "ACCEPT",
+          "threshold": "ACCEPT",
+          "passed": true,
+          "detail": "有证据支撑的输出不应被标记为幻觉"
+        },
+        "幻觉防护(无证据数值)": {
+          "value": "evidence_gaps=3",
+          "threshold": ">=1 gap",
+          "passed": true,
+          "detail": "无工具证据的数值声明应被标记"
+        }
+      }
+    },
+    "安全合规": {
+      "total": 8,
+      "passed": 8,
+      "metrics": {
+        "正常参数通过": {
+          "value": "通过",
+          "threshold": "通过",
+          "passed": true,
+          "detail": "合法服务名应通过校验"
+        },
+        "注入攻击拦截率": {
+          "value": "4/4",
+          "threshold": "4/4",
+          "passed": true,
+          "detail": "所有注入攻击载荷应被拦截"
+        },
+        "空参数拦截": {
+          "value": "拦截",
+          "threshold": "拦截",
+          "passed": true,
+          "detail": "空参数应被拦截"
+        },
+        "高危工具标记": {
+          "value": "{'restart_service'}",
+          "threshold": "非空",
+          "passed": true,
+          "detail": "必须标记高危工具以触发审批"
+        },
+        "RBAC 权限控制": {
+          "value": "有",
+          "threshold": "有",
+          "passed": true,
+          "detail": "必须实现角色权限控制"
+        },
+        "审计日志": {
+          "value": "有",
+          "threshold": "有",
+          "passed": true,
+          "detail": "高危操作必须记录审计日志"
+        },
+        "配置无明文密码": {
+          "value": "无明文密码",
+          "threshold": "无明文密码",
+          "passed": true,
+          "detail": "config.ini 不应包含明文密码"
+        },
+        ".env 模板": {
+          "value": "有",
+          "threshold": "有",
+          "passed": true,
+          "detail": ".env.example 应包含 API Key 占位符"
+        }
+      }
+    },
+    "评测系统": {
+      "total": 3,
+      "passed": 3,
+      "metrics": {
+        "RAGAS 指标计算": {
+          "value": "F=0.60 R=0.00 P=0.52 R=0.50",
+          "threshold": "全部 0~1",
+          "passed": true,
+          "detail": "四个 RAGAS 指标应在合法范围内"
+        },
+        "Agent 行为追踪": {
+          "value": "calls=2, success_rate=100%",
+          "threshold": "calls=2, rate=100%",
+          "passed": true,
+          "detail": "行为指标应正确计算"
+        },
+        "聚合报告": {
+          "value": "sessions=1",
+          "threshold": ">0",
+          "passed": true,
+          "detail": "聚合指标应正确汇总"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+# IT-Ops Agent 依赖清单（Milvus + 远程 BGE 版）
+# 核心框架
+langgraph>=0.2.0
+langgraph-checkpoint-redis
+langchain>=0.3.0
+langchain-core>=0.3.0
+langchain-community>=0.3.0
+langchain-openai>=0.2.0
+
+# 向量数据库（Milvus）
+pymilvus>=2.4.0
+
+# HTTP 客户端（远程 BGE Embedding/Rerank、工具调用）
+requests>=2.28.0
+
+# 工具与协议
+mcp>=0.1.0
+pydantic>=2.0.0
+
+# 拓扑图
+networkx>=3.0
+
+# 缓存 / Checkpoint / HITL 看门狗
+redis>=5.0.0
+
+# 监控与日志
+prometheus-client>=0.17.0
+structlog>=23.0.0
+
+# 评测
+ragas>=0.1.0
+
+# 工具
+tiktoken>=0.5.0
+numpy>=1.24.0
+pandas>=2.0.0
+
+# 异步支持
+aiohttp>=3.8.0
+httpx>=0.24.0
+
+# 配置
+python-dotenv>=1.0.0
+
+# 测试
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+
+# 可选：生产环境
+uvicorn>=0.23.0
+fastapi>=0.100.0

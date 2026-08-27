@@ -1,0 +1,20 @@
+# 敏感信息
+.env
+*.env
+!*.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# 日志与运行产物
+*.log
+logs/
+checkpoints/
+
+# IDE
+.idea/
+.vscode/
